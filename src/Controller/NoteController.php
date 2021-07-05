@@ -2,16 +2,35 @@
 
 namespace App\Controller;
 
+use App\Entity\Note;
+use App\Repository\NoteRepository;
+use Rompetomp\InertiaBundle\Service\InertiaInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/note')]
 class NoteController extends BaseController
 {
+    private NoteRepository $noteRepository;
+
+    public function __construct(InertiaInterface $inertia, NoteRepository $noteRepository)
+    {
+        parent::__construct($inertia);
+
+        $this->noteRepository = $noteRepository;
+    }
+
     #[Route('/', name: 'note')]
     public function index(): Response
     {
-        return $this->inertia->render('Note/Index.vue');
+        $notes = $this->noteRepository->findAll();
+
+        return $this->inertia->render(
+            'Note/Index.vue',
+            [
+                'notes' => $notes,
+            ]
+        );
     }
 
     #[Route('/create', name: 'note_create')]
