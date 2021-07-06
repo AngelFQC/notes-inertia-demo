@@ -8,6 +8,17 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        <script>
+            // the world's tiniest adapter to handle tighten/ziggy's 'route' function calls with FOSJSRoutingBundle
+            window.route = function(name, params) {
+                if (typeof(params) === 'number') {
+                    params = { 'id': params }
+                }
+                return Routing.generate(name, params)
+            }
+        </script>
     </head>
     <body>
         {{ inertia(page) }}

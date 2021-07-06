@@ -8,7 +8,7 @@ use Rompetomp\InertiaBundle\Service\InertiaInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/note')]
+#[Route('/note', options: ['expose' => true])]
 class NoteController extends BaseController
 {
     private NoteRepository $noteRepository;

@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends BaseController
 {
-    #[Route('/dashboard', name: 'dashboard')]
+    #[Route('/dashboard', name: 'dashboard', options: ['expose' => true])]
     public function dashboard(): Response
     {
         return $this->inertia->render('Dashboard');

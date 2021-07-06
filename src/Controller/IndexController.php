@@ -10,6 +10,6 @@ class IndexController extends BaseController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->inertia->render('Index');
+        return $this->redirectToRoute('dashboard');
     }
 }
